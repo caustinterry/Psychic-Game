@@ -31,7 +31,7 @@ var letters = [
 var wins = 0;
 var losses = 0;
 var guesses = 9;
-var guessString = "";
+var guessString = [];
 
 //placeholder variables for insertion into HTML
 var userWinsText = document.getElementById("userWins");
@@ -39,16 +39,41 @@ var userLossesText = document.getElementById("userLosses");
 var userGuess = document.getElementById("guessesLeft");
 var userInput = document.getElementById("userGuesses");
 
+// var computerGuess = letters[Math.floor(Math.random() * letters.length)];
+// console.log(computerGuess);
+
+function randNumber() {
+  return letters[Math.floor(Math.random() * letters.length)];
+}
+
+var computerGuess = randNumber();
+
 //function to run on button clicks
 document.onkeyup = function(guess) {
   var userEntry = guess.key.toUpperCase();
-  var computerGuess = letters[Math.floor(Math.random() * letters.length)];
-  var inputString = guessString + userEntry;
-  userInput.textContent += userEntry + " ";
-
+  guessString.push(userEntry);
+  userInput.textContent = guessString;
   if (userEntry === computerGuess) {
-    userWinsText.textContent = wins++;
+    wins++;
+    userWinsText.textContent = wins;
+    guessString.length = 0;
+    userInput.textContent = guessString;
+    guesses = 9;
+    userGuess.textContent = guesses;
+    computerGuess = letters[Math.floor(Math.random() * letters.length)];
+    console.log(computerGuess);
   } else {
-    userGuess.textContent = guesses--;
+    guesses--;
+    userGuess.textContent = guesses;
+  }
+  if (guesses === 0) {
+    losses++;
+    userLossesText.textContent = losses;
+    guessString.length = 0;
+    userInput.textContent = guessString;
+    guesses = 9;
+    userGuess.textContent = guesses;
+    computerGuess = letters[Math.floor(Math.random() * letters.length)];
+    console.log(computerGuess);
   }
 };

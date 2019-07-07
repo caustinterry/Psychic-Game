@@ -39,17 +39,15 @@ var userLossesText = document.getElementById("userLosses");
 var userGuess = document.getElementById("guessesLeft");
 var userInput = document.getElementById("userGuesses");
 
-// var computerGuess = letters[Math.floor(Math.random() * letters.length)];
-// console.log(computerGuess);
-
 function randNumber() {
   return letters[Math.floor(Math.random() * letters.length)];
 }
 
 var computerGuess = randNumber();
+console.log(computerGuess);
 
 //function to run on button clicks
-document.onkeyup = function(guess) {
+document.onkeypress = function(guess) {
   var userEntry = guess.key.toUpperCase();
   guessString.push(userEntry);
   userInput.textContent = guessString;
